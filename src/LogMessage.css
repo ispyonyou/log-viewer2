@@ -1,0 +1,34 @@
+.message_row_ul:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.message_row {
+  border: 1px dashed #999;
+  padding: 5px;
+}
+
+.message_row_ul li {
+  float: left;
+  list-style: none;
+  margin-left: 10px;
+  font-size: 0.7em;
+  background-color: aqua;
+  padding: 3px;
+  border-radius: 0 6px 0 6px
+}
+
+.message_row_ul {
+  margin: 0
+}
+
+.message_row p{
+  margin: 0;	
+  padding: 0;
+  word-break: break-word;
+}
+
+.message_row:nth-child(odd) {
+  background-color: aquamarine;
+}
