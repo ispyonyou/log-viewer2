@@ -5,6 +5,7 @@ import React from 'react'
 import FileChooser from './FileChooser'
 import LogLevelsFilter from './LogLevelsFilter'
 import LogMessagesList from './LogMessagesList'
+import Filter from './Filter'
 
 class App extends React.Component
 {
@@ -25,12 +26,27 @@ class App extends React.Component
     this.setState({logMessages: newLogMessages})
   }
 
+  handleFilterChanged = (filter) => {
+    var newLogMessages = this.state.defaultLogMessages || []
+    console.log('filter', filter)
+
+    if (filter.includeLogLevels.length) {
+      newLogMessages = newLogMessages.filter( logMessage => {
+        return filter.includeLogLevels.some(level => level === logMessage.lvl)
+      } );
+
+    }
+
+    this.setState({logMessages: newLogMessages})
+  }
+
   render() {
     return (
       <div>
         <h1>Hello world</h1>
         <FileChooser handleFileRead={this.handleFileRead} />
-        <LogLevelsFilter onChange={this.handleLogLevelsChanged}/>
+        <LogLevelsFilter onChange={this.handleLogLevelsChanged} />
+        <Filter onChange={this.handleFilterChanged} />
         <LogMessagesList logMessages={this.state.logMessages} />
       </div>
     )

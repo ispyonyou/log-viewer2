@@ -1,0 +1,10 @@
+.filter {
+  border: 1px dashed #999;
+  float: right;
+  max-width: 50%;
+  background-color: chartreuse;
+}
+
+.filter_opened {
+  min-width: 20em;
+}
