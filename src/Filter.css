@@ -7,4 +7,9 @@
 
 .filter_opened {
   min-width: 20em;
+  padding: 5px;
+}
+
+.filter .label {
+  width: 8em;
 }

@@ -54,12 +54,12 @@ class Filter extends React.Component
       <div className="filter filter_opened">
         <form>
           <div>
-          <div className="label">
-            Include levels:
-          </div>
-          <div className="lvlFilter">
+            <div className="label" style= {{float: "left"}}>
+              Include levels: </div>
             <LogLevelsFilter  name="includeLevels" onChange={this.handleLogLevelsChanged}/>
-          </div>
+            <div className="label" style= {{float: "left"}}>
+              Exclude levels: </div>
+            <LogLevelsFilter  name="execludeLevels" onChange={this.handleLogLevelsChanged}/>
           </div>
         </form>
         <p onClick={this.handleCloseFilter}>Close Filter</p>
