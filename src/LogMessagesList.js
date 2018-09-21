@@ -16,8 +16,11 @@ class LogMessagesList extends React.Component
   getBody() {
     const {logMessages} = this.props
 
+
     if (!logMessages || !logMessages.length)
       return <p>No messages</p>
+
+    console.log('logMessages.length - ', logMessages.length);
 
     return (
       <div>

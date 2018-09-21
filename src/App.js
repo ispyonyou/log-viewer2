@@ -61,9 +61,11 @@ class App extends React.Component
 //    console.log(asd)
 
     var newDefaultLogMessages = JSON.parse(jsonStr)
+    var newLogMessages = newDefaultLogMessages.slice(0, 500)
+
     this.setState( {
       defaultLogMessages: newDefaultLogMessages,
-      logMessages: newDefaultLogMessages
+      logMessages: newLogMessages
     } )
   }
 }
