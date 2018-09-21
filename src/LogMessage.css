@@ -5,7 +5,7 @@
 }
 
 .message_row {
-  border: 1px dashed #999;
+/*  border: 1px dashed #999;*/
   padding: 5px;
 }
 
@@ -13,9 +13,9 @@
   float: left;
   list-style: none;
   margin-left: 10px;
-  font-size: 0.7em;
+  font-size: 0.6em;
   background-color: aqua;
-  padding: 3px;
+  padding: 2px;
   border-radius: 0 6px 0 6px
 }
 
@@ -30,5 +30,5 @@
 }
 
 .message_row:nth-child(odd) {
-  background-color: aquamarine;
+  background-color: #f4f7fc;
 }

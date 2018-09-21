@@ -3,8 +3,7 @@
 import React from 'react'
 
 import FileChooser from './FileChooser'
-import LogLevelsFilter from './LogLevelsFilter'
-import LogMessagesList from './LogMessagesList'
+import PaginatedLogMessagesList from './PaginatedLogMessagesList'
 import Filter from './Filter'
 
 class App extends React.Component
@@ -43,29 +42,22 @@ class App extends React.Component
   render() {
     return (
       <div>
-        <h1>Hello world</h1>
-        <FileChooser handleFileRead={this.handleFileRead} />
-        <LogLevelsFilter onChange={this.handleLogLevelsChanged} />
+        <FileChooser handleFileRead={this.handleFileRead} />        
         <Filter onChange={this.handleFilterChanged} />
-        <LogMessagesList logMessages={this.state.logMessages} />
+        <PaginatedLogMessagesList logMessages={this.state.logMessages} perPage={500} />
       </div>
     )
   }
 
   handleFileRead = (e) => {
-//    console.log(e.target.result)
-
     var jsonStr = "[" + e.target.result
     jsonStr = jsonStr.substr(0, jsonStr.length-1) + "]"
 
-//    console.log(asd)
-
     var newDefaultLogMessages = JSON.parse(jsonStr)
-    var newLogMessages = newDefaultLogMessages.slice(0, 500)
 
     this.setState( {
       defaultLogMessages: newDefaultLogMessages,
-      logMessages: newLogMessages
+      logMessages: newDefaultLogMessages
     } )
   }
 }
