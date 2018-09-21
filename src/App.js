@@ -13,40 +13,22 @@ class App extends React.Component
     logMessages: null
   }  
 
-  handleLogLevelsChanged = (selectedOptions) => {
-    var newLogMessages = this.state.defaultLogMessages || []
-
-    if(selectedOptions.length) {
-      newLogMessages = newLogMessages.filter( logMessage => {
-        return selectedOptions.some(option => option.value === logMessage.lvl)
-      } );
-    }
-
-    this.setState({logMessages: newLogMessages})
-  }
-
   handleFilterChanged = (filter) => {
     var newLogMessages = this.state.defaultLogMessages || []
-    console.log('filter', filter)
 
     if (filter.includeLogLevels.length) {
       newLogMessages = newLogMessages.filter( logMessage => {
         return filter.includeLogLevels.some(level => level === logMessage.lvl)
       } );
+    }
 
+    if (filter.excludeLogLevels.length) {
+      newLogMessages = newLogMessages.filter( logMessage => {
+        return !filter.excludeLogLevels.some(level => level === logMessage.lvl)
+      } );
     }
 
     this.setState({logMessages: newLogMessages})
-  }
-
-  render() {
-    return (
-      <div>
-        <FileChooser handleFileRead={this.handleFileRead} />        
-        <Filter onChange={this.handleFilterChanged} />
-        <PaginatedLogMessagesList logMessages={this.state.logMessages} perPage={500} />
-      </div>
-    )
   }
 
   handleFileRead = (e) => {
@@ -59,6 +41,31 @@ class App extends React.Component
       defaultLogMessages: newDefaultLogMessages,
       logMessages: newDefaultLogMessages
     } )
+  }
+
+  getLogLevels(logMessages) {
+    if(!logMessages) return [];
+
+    var logLevelsSet = new Set();
+    logMessages.forEach( (msg) => {
+      logLevelsSet.add(msg.lvl);
+    });
+
+    return [...logLevelsSet];
+  }
+
+  render() {
+    const {defaultLogMessages, logMessages} = this.state;
+    var logLevels = this.getLogLevels(defaultLogMessages);
+
+    return (
+      <div>
+        <FileChooser handleFileRead={this.handleFileRead} />        
+        <Filter avLogLevles = {logLevels}
+                onChange={this.handleFilterChanged} />
+        <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />
+      </div>
+    )
   }
 }
 

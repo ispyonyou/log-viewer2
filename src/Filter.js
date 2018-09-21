@@ -8,6 +8,7 @@ class Filter extends React.Component
   state = {
     isOpened: false,
     includeLogLevels: [],
+    excludeLogLevels: [],
   }
 
   handleOpenFilter = () => {
@@ -18,19 +19,29 @@ class Filter extends React.Component
     this.setState({ isOpened: false });
   }
 
-  handleLogLevelsChanged = (selectedOptions) => {
-    console.log(selectedOptions)
-    var newIncludeLogLevels = selectedOptions.map(option => option.value);
-    console.log(newIncludeLogLevels)
-    this.setState({includeLogLevels: newIncludeLogLevels});
-
+  handleIncludeLevelsChanged = (selectedOptions) => {
     const {onChange} = this.props;
-    onChange({includeLogLevels: newIncludeLogLevels});
+    
+    var newIncludeLogLevels = selectedOptions.map(option => option.value);
+    this.setState({includeLogLevels: newIncludeLogLevels}, () => {
+      onChange(this.getFilterData());
+    });
+  }
+
+  handleExcludeLevelsChanged = (selectedOptions) => {
+    const {onChange} = this.props;
+    
+    var newExcludeLogLevels = selectedOptions.map(option => option.value);
+    this.setState({excludeLogLevels: newExcludeLogLevels}, () => {
+      onChange(this.getFilterData());
+    });
+
   }
 
   getFilterData() {
     return {
       includeLogLevels: this.state.includeLogLevels,
+      excludeLogLevels: this.state.excludeLogLevels,
     }
   }
 
@@ -47,19 +58,21 @@ class Filter extends React.Component
     );
   }
 
-//  <label htmlFor="includeLevels" className="label">
-
   renderOpened() {
+    const {avLogLevles} = this.props;
+
     return (
       <div className="filter filter_opened">
         <form>
           <div>
             <div className="label" style= {{float: "left"}}>
               Include levels: </div>
-            <LogLevelsFilter  name="includeLevels" onChange={this.handleLogLevelsChanged}/>
+            <LogLevelsFilter avLogLevles={avLogLevles}
+                             onChange={this.handleIncludeLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
               Exclude levels: </div>
-            <LogLevelsFilter  name="execludeLevels" onChange={this.handleLogLevelsChanged}/>
+            <LogLevelsFilter avLogLevles={avLogLevles}
+                             onChange={this.handleExcludeLevelsChanged}/>
           </div>
         </form>
         <p onClick={this.handleCloseFilter}>Close Filter</p>

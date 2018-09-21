@@ -1,14 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
 
-const options = [
-    { value: 'DEBUG', label: 'DEBUG' },
-    { value: 'ERROR', label: 'ERROR' },
-    { value: 'INFO', label: 'INFO' },
-    { value: 'TRACE', label: 'TRACE' },
-    
-]
-
 class LogLevelsFilter extends React.Component
 {
     state = {
@@ -25,7 +17,9 @@ class LogLevelsFilter extends React.Component
 
     render() {
         const { selectedOptions } = this.state;
-        const { onChange } = this.props;
+        const { avLogLevles, onChange } = this.props;
+
+        var options = avLogLevles.map( level => { return { value: level, label: level } } )
 
         return (
             <Select value={selectedOptions}
