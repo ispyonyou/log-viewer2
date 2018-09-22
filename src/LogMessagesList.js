@@ -14,7 +14,7 @@ class LogMessagesList extends React.Component
   }
 
   getBody() {
-    const {logMessages} = this.props
+    const {logMessages, settings} = this.props
 
 
     if (!logMessages || !logMessages.length)
@@ -24,7 +24,7 @@ class LogMessagesList extends React.Component
 
     return (
       <div>
-        {logMessages.map( logMessage => <LogMessage logMessage={logMessage} />)}
+        {logMessages.map( logMessage => <LogMessage logMessage={logMessage} settings={settings}/>)}
       </div>
     )
   }

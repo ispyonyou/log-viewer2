@@ -5,12 +5,16 @@ import React from 'react'
 import FileChooser from './FileChooser'
 import PaginatedLogMessagesList from './PaginatedLogMessagesList'
 import Filter from './Filter'
+import Settings from './Settings'
 
 class App extends React.Component
 {
   state = {
     defaultLogMessages: null,
-    logMessages: null
+    logMessages: null,
+    settings: {
+      formatSql: true,
+    }
   }  
 
   handleFilterChanged = (filter) => {
@@ -41,6 +45,10 @@ class App extends React.Component
     }
 
     this.setState({logMessages: newLogMessages})
+  }
+
+  handleSettingsChanged = (newSettings) => {
+    this.setState({settings: newSettings})
   }
 
   handleFileRead = (e) => {
@@ -78,7 +86,7 @@ class App extends React.Component
   }
 
   render() {
-    const {defaultLogMessages, logMessages} = this.state;
+    const {defaultLogMessages, logMessages, settings} = this.state;
     var logLevels = this.getLogLevels(defaultLogMessages);
     var loggers = this.getLoggers(defaultLogMessages);
 
@@ -88,7 +96,9 @@ class App extends React.Component
         <Filter avLogLevles = {logLevels}
                 avLoggers={loggers}
                 onChange={this.handleFilterChanged} />
-        <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />
+        <Settings settings={settings}
+                  onChange={this.handleSettingsChanged}/>
+        <PaginatedLogMessagesList logMessages={logMessages} settings={settings} perPage={500} />
       </div>
     )
   }

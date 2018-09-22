@@ -1,16 +1,17 @@
-.filter {
+.settings {
   border: 1px dashed #999;
   float: right;
   max-width: 50%;
-  background-color: chartreuse;
+  background-color: orange;
   clear: both;
+  margin-top: 10px
 }
 
-.filter_opened {
+.settings_opened {
   min-width: 20em;
   padding: 5px;
 }
 
-.filter .label {
+.settings .label {
   width: 8em;
 }

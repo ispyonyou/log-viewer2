@@ -23,10 +23,15 @@ class LogMessage extends React.Component
   }
 
   getLogMessage() {
+    const {settings} = this.props
     const {lgr, msg} = this.props.logMessage;
 
     if (lgr.match(/TwQuery\(.+\)/)) {
-      var formattedMsg = sqlFormatter.format(msg);
+      var formattedMsg = msg;
+      if (settings.formatSql){ 
+        formattedMsg = sqlFormatter.format(msg);
+      }
+
       return (
         <Highlight className="sql">{formattedMsg}</Highlight>
       )

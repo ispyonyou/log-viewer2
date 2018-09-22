@@ -17,7 +17,7 @@ class PaginatedLogMessagesList extends React.Component
 
   render() {
     const {selectedPage} = this.state
-    const {logMessages, perPage} = this.props    
+    const {logMessages, perPage, settings} = this.props    
         
     if (!logMessages || !logMessages.length) return <p>No messages</p>
 
@@ -32,7 +32,8 @@ class PaginatedLogMessagesList extends React.Component
                          subContainerClassName={"pages pagination"}
                          pageCount={pagesCount}
                          onPageChange={this.handlePageClick}/>
-          <LogMessagesList logMessages={logMessagesForPage} />
+          <LogMessagesList logMessages={logMessagesForPage} 
+                           settings={settings}/>
         </div>
       )
   }
