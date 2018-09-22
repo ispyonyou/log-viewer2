@@ -1,11 +1,15 @@
 import React from 'react'
+import Highlight from 'react-highlight'
+import sqlFormatter from 'sql-formatter'
 
+import './Highlight.css'
 import './LogMessage.css'
 
 class LogMessage extends React.Component
 {
   render() {
-    const {lvl, lgr, msg} = this.props.logMessage
+    const {lvl, lgr, msg} = this.props.logMessage;
+
 
     return (
       <div className="message_row">
@@ -13,9 +17,22 @@ class LogMessage extends React.Component
           <li className="log_level">{lvl}</li>
           <li className="logger">{lgr}</li>
         </ul>
-        <p className="log_message">{msg}</p>
+        {this.getLogMessage()}
       </div>
     )
+  }
+
+  getLogMessage() {
+    const {lgr, msg} = this.props.logMessage;
+
+    if (lgr.match(/TwQuery\(.+\)/)) {
+      var formattedMsg = sqlFormatter.format(msg);
+      return (
+        <Highlight className="sql">{formattedMsg}</Highlight>
+      )
+    }
+
+    return <p className="log_message">{msg}</p>
   }
 
 }
