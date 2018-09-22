@@ -28,6 +28,18 @@ class App extends React.Component
       } );
     }
 
+    if (filter.includeLoggers.length) {
+      newLogMessages = newLogMessages.filter( logMessage => {
+        return filter.includeLoggers.some(logger => logger === logMessage.lgr)
+      } );
+    }
+
+    if (filter.excludeLoggers.length) {
+      newLogMessages = newLogMessages.filter( logMessage => {
+        return !filter.excludeLoggers.some(logger => logger === logMessage.lgr)
+      } );
+    }
+
     this.setState({logMessages: newLogMessages})
   }
 
@@ -54,14 +66,27 @@ class App extends React.Component
     return [...logLevelsSet];
   }
 
+  getLoggers(logMessages) {
+    if(!logMessages) return [];
+
+    var logegrssSet = new Set();
+    logMessages.forEach( (msg) => {
+      logegrssSet.add(msg.lgr);
+    });
+
+    return [...logegrssSet];
+  }
+
   render() {
     const {defaultLogMessages, logMessages} = this.state;
     var logLevels = this.getLogLevels(defaultLogMessages);
+    var loggers = this.getLoggers(defaultLogMessages);
 
     return (
       <div>
         <FileChooser handleFileRead={this.handleFileRead} />        
         <Filter avLogLevles = {logLevels}
+                avLoggers={loggers}
                 onChange={this.handleFilterChanged} />
         <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />
       </div>

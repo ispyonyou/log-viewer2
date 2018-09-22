@@ -9,6 +9,8 @@ class Filter extends React.Component
     isOpened: false,
     includeLogLevels: [],
     excludeLogLevels: [],
+    includeLoggers: [],
+    excludeLoggers: [],
   }
 
   handleOpenFilter = () => {
@@ -35,14 +37,33 @@ class Filter extends React.Component
     this.setState({excludeLogLevels: newExcludeLogLevels}, () => {
       onChange(this.getFilterData());
     });
+  }
 
+  handleIncludeLoggersChanged = (selectedOptions) => {
+    const {onChange} = this.props;
+    
+    var newIncludeLoggers = selectedOptions.map(option => option.value);
+    this.setState({includeLoggers: newIncludeLoggers}, () => {
+      onChange(this.getFilterData());
+    });
+  }
+
+  handleExcludeLoggersChanged = (selectedOptions) => {
+    const {onChange} = this.props;
+    
+    var newExcludeLoggers = selectedOptions.map(option => option.value);
+    this.setState({excludeLoggers: newExcludeLoggers}, () => {
+      onChange(this.getFilterData());
+    });
   }
 
   getFilterData() {
     return {
       includeLogLevels: this.state.includeLogLevels,
       excludeLogLevels: this.state.excludeLogLevels,
-    }
+      includeLoggers: this.state.includeLoggers,
+      excludeLoggers: this.state.excludeLoggers,
+      }
   }
 
   render() {
@@ -59,7 +80,7 @@ class Filter extends React.Component
   }
 
   renderOpened() {
-    const {avLogLevles} = this.props;
+    const {avLogLevles, avLoggers} = this.props;
 
     return (
       <div className="filter filter_opened">
@@ -73,6 +94,14 @@ class Filter extends React.Component
               Exclude levels: </div>
             <LogLevelsFilter avLogLevles={avLogLevles}
                              onChange={this.handleExcludeLevelsChanged}/>
+            <div className="label" style= {{float: "left"}}>
+              Include loggers: </div>
+            <LogLevelsFilter avLogLevles={avLoggers}
+                             onChange={this.handleIncludeLoggersChanged}/>
+            <div className="label" style= {{float: "left"}}>
+              Exclude loggers: </div>
+            <LogLevelsFilter avLogLevles={avLoggers}
+                             onChange={this.handleExcludeLoggersChanged}/>
           </div>
         </form>
         <p onClick={this.handleCloseFilter}>Close Filter</p>
