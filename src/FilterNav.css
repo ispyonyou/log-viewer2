@@ -1,0 +1,9 @@
+.filter_opened {
+/*  position: absolute;*/
+  left: 10px;
+  right: 10px;
+  top: 100px;
+  min-width: 20em;
+  padding: 5px;
+  background-color: chartreuse;
+}

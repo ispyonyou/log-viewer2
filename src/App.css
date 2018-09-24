@@ -1,0 +1,25 @@
+/*.header {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+}*/
+
+.header .navItem {
+  float: left;
+  padding: 10px;
+/*  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;*/  
+  border: 1px dashed #999;
+}
+
+.fileChooser {
+  float: left;
+  padding: 10px;
+  border: 1px dashed red;
+}
+
+/*.header li:last-of-type {
+  padding-left: 10px;
+  float: none;
+}*/

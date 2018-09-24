@@ -1,6 +1,7 @@
 .filter {
   border: 1px dashed #999;
-  float: right;
+/*  position: relative;*/
+/*  float: right;*/
   max-width: 50%;
   background-color: chartreuse;
   clear: both;

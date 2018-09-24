@@ -19,6 +19,9 @@ class Filter extends React.Component
 
   handleCloseFilter = () => {
     this.setState({ isOpened: false });
+
+    const {onClose} = this.props;
+    onClose();
   }
 
   handleIncludeLevelsChanged = (selectedOptions) => {
@@ -67,16 +70,18 @@ class Filter extends React.Component
   }
 
   render() {
-    var {isOpened} = this.state;
+    var {isOpened} = this.props;
 
-    if( isOpened )
-      return this.renderOpened();
+    console.log('isOpened - ', isOpened)
+    if( !isOpened ) return null;
 
-    return (
-      <div className="filter">
-        <p onClick={this.handleOpenFilter}>Filter</p>
-      </div>
-    );
+    return this.renderOpened();
+
+//    return (
+//      <div className="filter">
+//        <p onClick={this.handleOpenFilter}>Filter</p>
+//      </div>
+//    );
   }
 
   renderOpened() {
