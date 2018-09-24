@@ -69,7 +69,9 @@ class App extends React.Component
     var jsonStr = "[" + e.target.result
     jsonStr = jsonStr.substr(0, jsonStr.length-1) + "]"
 
-    var newDefaultLogMessages = JSON.parse(jsonStr)
+    var idCounter = 0;
+    var newDefaultLogMessages = JSON.parse(jsonStr);
+    var newDefaultLogMessages = newDefaultLogMessages.map(msg => {return {...msg, ...{ "id": idCounter++}}} );
 
     this.setState( {
       defaultLogMessages: newDefaultLogMessages,

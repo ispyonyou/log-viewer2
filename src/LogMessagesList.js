@@ -22,7 +22,7 @@ class LogMessagesList extends React.Component
 
     return (
       <div>
-        {logMessages.map( logMessage => <LogMessage logMessage={logMessage} settings={settings}/>)}
+        {logMessages.map( logMessage => <LogMessage logMessage={logMessage} settings={settings} key={logMessage.id}/>)}
       </div>
     )
   }

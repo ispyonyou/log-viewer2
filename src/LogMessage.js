@@ -8,8 +8,7 @@ import './LogMessage.css'
 class LogMessage extends React.Component
 {
   render() {
-    const {lvl, lgr, msg} = this.props.logMessage;
-
+    const {lvl, lgr} = this.props.logMessage;
 
     return (
       <div className="message_row">
