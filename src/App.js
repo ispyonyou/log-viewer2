@@ -14,6 +14,7 @@ class App extends React.Component
     logMessages: null,
     settings: {
       formatSql: true,
+      highlightSql: true,
     }
   }  
 

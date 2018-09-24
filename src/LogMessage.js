@@ -26,20 +26,31 @@ class LogMessage extends React.Component
     const {settings} = this.props
     const {lgr, msg} = this.props.logMessage;
 
-    if (lgr.match(/TwQuery\(.+\)/)) {
-      var formattedMsg = msg;
-      if (settings.formatSql){ 
-        formattedMsg = sqlFormatter.format(msg);
-      }
+    var msgText = msg;
 
+    var isSql = lgr.match(/TwQuery\(.+\)/);
+    if (isSql) {
+      msgText = this.getSqlLogMessageText(msg);
+    }
+
+    if (isSql && settings.highlightSql ) {
       return (
-        <Highlight className="sql">{formattedMsg}</Highlight>
+        <Highlight className="sql">{msgText}</Highlight>
       )
     }
 
-    return <p className="log_message">{msg}</p>
+    return <p className="log_message">{msgText}</p>
   }
 
+  getSqlLogMessageText(msg) {
+    const {settings} = this.props;
+
+    if(!settings.formatSql) {
+      return msg;
+    }
+
+    return sqlFormatter.format(msg)
+  }
 }
 
 export default LogMessage

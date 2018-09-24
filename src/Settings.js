@@ -7,6 +7,7 @@ class Settings extends React.Component
   state = {
     isOpened: false,
     formatSql: true,
+    highlightSql: true,
   }
 
   handleOpenSettings = () => {
@@ -26,9 +27,19 @@ class Settings extends React.Component
     });
   }
 
+  handleHighlightSqlClicked = (event) => {
+    const {onChange} = this.props;
+    const {target} = event;
+
+    this.setState({highlightSql: target.checked}, () => {
+      onChange(this.getSettingsData());
+    });
+  }
+
   getSettingsData() {
     return {
       formatSql: this.state.formatSql,
+      highlightSql: this.state.highlightSql,
     }
   }
 
@@ -46,13 +57,17 @@ class Settings extends React.Component
   }
 
   renderOpened() {
-    const {formatSql} = this.state
+    const {formatSql, highlightSql} = this.state
 
     return (
       <div className="settings settings_opened">
           <div>
             <input type="checkbox" id="format_sql" checked={formatSql} onChange={this.handleFormatSqlClicked}/>
             <label htmlFor="format_sql"> Форматировать SQL</label>
+          </div>
+          <div>
+            <input type="checkbox" id="highlight_sql" checked={highlightSql} onChange={this.handleHighlightSqlClicked}/>
+            <label htmlFor="highlight_sql"> Подсвечивать SQL</label>
           </div>
           <p onClick={this.handleCloseSettings}>Close Settings</p>
       </div>
