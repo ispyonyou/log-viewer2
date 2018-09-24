@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './Filter.css'
-import LogLevelsFilter from './LogLevelsFilter'
+import SimpleMultiSelect from './SimpleMultiSelect'
 
 class Filter extends React.Component
 {
@@ -54,20 +54,20 @@ class Filter extends React.Component
           <div>
             <div className="label" style= {{float: "left"}}>
               Include levels: </div>
-            <LogLevelsFilter avLogLevels={avLogLevels}
-                             onChange={this.handleIncludeLevelsChanged}/>
+            <SimpleMultiSelect options={avLogLevels}
+                               onChange={this.handleIncludeLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
               Exclude levels: </div>
-            <LogLevelsFilter avLogLevels={avLogLevels}
-                             onChange={this.handleExcludeLevelsChanged}/>
+            <SimpleMultiSelect options={avLogLevels}
+                               onChange={this.handleExcludeLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
               Include loggers: </div>
-            <LogLevelsFilter avLogLevels={avLoggers}
-                             onChange={this.handleIncludeLoggersChanged}/>
+            <SimpleMultiSelect options={avLoggers}
+                               onChange={this.handleIncludeLoggersChanged}/>
             <div className="label" style= {{float: "left"}}>
               Exclude loggers: </div>
-            <LogLevelsFilter avLogLevels={avLoggers}
-                             onChange={this.handleExcludeLoggersChanged}/>
+            <SimpleMultiSelect options={avLoggers}
+                               onChange={this.handleExcludeLoggersChanged}/>
           </div>
         </form>
         <p onClick={this.handleCloseFilter}>Close Filter</p>

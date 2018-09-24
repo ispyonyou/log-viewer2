@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-class LogLevelsFilter extends React.Component
+class SimpleMultiSelect extends React.Component
 {
     state = {
         selectedOptions: null,
@@ -15,18 +15,18 @@ class LogLevelsFilter extends React.Component
 
     render() {
         const { selectedOptions } = this.state;
-        const { avLogLevels } = this.props;
+        const { options } = this.props;
 
-        var options = avLogLevels.map( level => { return { value: level, label: level } } )
+        var optionsForSelect = options.map( level => { return { value: level, label: level } } )
 
         return (
             <Select value={selectedOptions}
               onChange={this.handleChange}
-              options={options}
+              options={optionsForSelect}
               isMulti
             />
         )
     }
 }
 
-export default LogLevelsFilter
+export default SimpleMultiSelect

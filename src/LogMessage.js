@@ -14,8 +14,8 @@ class LogMessage extends React.Component
     return (
       <div className="message_row">
         <ul className="message_row_ul">
-          <li className="log_level">{lvl}</li>
-          <li className="logger">{lgr}</li>
+          <li className="log_level" key="log_level">{lvl}</li>
+          <li className="logger" key="logger">{lgr}</li>
         </ul>
         {this.getLogMessage()}
       </div>
