@@ -4,9 +4,8 @@ import React from 'react'
 
 import FileChooser from './FileChooser'
 import PaginatedLogMessagesList from './PaginatedLogMessagesList'
-import Filter from './Filter'
-import FilterNav from './FilterNav'
 import NavItem from './NavItem'
+import Filter from './Filter'
 import Settings from './Settings'
 
 import './App.css'
@@ -111,7 +110,7 @@ class App extends React.Component
 
         <div className="header">
           <div className="navItem">
-            <FilterNav onChange={this.handleShowFilter} />
+            <NavItem label="Filter" onClick={this.handleShowFilter} />
           </div>
           <div className="navItem">
             <NavItem label="Settings" onClick={this.handleShowSettings} />

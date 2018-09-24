@@ -5,39 +5,21 @@ import './Settings.css'
 class Settings extends React.Component
 {
   state = {
-    isOpened: false,
     formatSql: true,
     highlightSql: true,
   }
 
-  handleOpenSettings = () => {
-    this.setState({ isOpened: true });
-  }
+  handleCloseSettings = () => { this.props.onClose(); }
 
-  handleCloseSettings = () => {
-    this.setState({ isOpened: false });
-  
-    const {onClose} = this.props;
-    onClose();
-  }
-
-  handleFormatSqlClicked = (event) => {
-    const {onChange} = this.props;
-    const {target} = event;
-
-    this.setState({formatSql: target.checked}, () => {
-      onChange(this.getSettingsData());
+  handleCheckChanged = (fieldName, event) => {
+    this.setState({[fieldName]: event.target.checked}, () => {
+      this.props.onChange(this.getSettingsData());
     });
   }
 
-  handleHighlightSqlClicked = (event) => {
-    const {onChange} = this.props;
-    const {target} = event;
+  handleFormatSqlClicked = (event) => { this.handleCheckChanged( 'formatSql', event ); }
 
-    this.setState({highlightSql: target.checked}, () => {
-      onChange(this.getSettingsData());
-    });
-  }
+  handleHighlightSqlClicked = (event) => { this.handleCheckChanged( 'highlightSql', event ); }
 
   getSettingsData() {
     return {
@@ -51,10 +33,6 @@ class Settings extends React.Component
 
     if( !isOpened ) return null;
 
-    return this.renderOpened();
-  }
-
-  renderOpened() {
     const {formatSql, highlightSql} = this.state
 
     return (

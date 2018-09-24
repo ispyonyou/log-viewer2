@@ -20,8 +20,6 @@ class LogMessagesList extends React.Component
     if (!logMessages || !logMessages.length)
       return <p>No messages</p>
 
-    console.log('logMessages.length - ', logMessages.length);
-
     return (
       <div>
         {logMessages.map( logMessage => <LogMessage logMessage={logMessage} settings={settings}/>)}

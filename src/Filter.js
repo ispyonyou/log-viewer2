@@ -6,59 +6,31 @@ import LogLevelsFilter from './LogLevelsFilter'
 class Filter extends React.Component
 {
   state = {
-    isOpened: false,
     includeLogLevels: [],
     excludeLogLevels: [],
     includeLoggers: [],
     excludeLoggers: [],
   }
 
-  handleOpenFilter = () => {
-    this.setState({ isOpened: true });
-  }
-
   handleCloseFilter = () => {
-    this.setState({ isOpened: false });
-
     const {onClose} = this.props;
     onClose();
   }
 
-  handleIncludeLevelsChanged = (selectedOptions) => {
-    const {onChange} = this.props;
-    
-    var newIncludeLogLevels = selectedOptions.map(option => option.value);
-    this.setState({includeLogLevels: newIncludeLogLevels}, () => {
-      onChange(this.getFilterData());
+  changeSelected(filedName, selectedOptions) {
+    var newSelOptions = selectedOptions.map(option => option.value);
+    this.setState({[filedName]: newSelOptions}, () => {
+      this.props.onChange(this.getFilterData());
     });
   }
 
-  handleExcludeLevelsChanged = (selectedOptions) => {
-    const {onChange} = this.props;
-    
-    var newExcludeLogLevels = selectedOptions.map(option => option.value);
-    this.setState({excludeLogLevels: newExcludeLogLevels}, () => {
-      onChange(this.getFilterData());
-    });
-  }
+  handleIncludeLevelsChanged = (selectedOptions) => { this.changeSelected('includeLogLevels', selectedOptions); }
 
-  handleIncludeLoggersChanged = (selectedOptions) => {
-    const {onChange} = this.props;
-    
-    var newIncludeLoggers = selectedOptions.map(option => option.value);
-    this.setState({includeLoggers: newIncludeLoggers}, () => {
-      onChange(this.getFilterData());
-    });
-  }
+  handleExcludeLevelsChanged = (selectedOptions) => { this.changeSelected('excludeLogLevels', selectedOptions); }
 
-  handleExcludeLoggersChanged = (selectedOptions) => {
-    const {onChange} = this.props;
-    
-    var newExcludeLoggers = selectedOptions.map(option => option.value);
-    this.setState({excludeLoggers: newExcludeLoggers}, () => {
-      onChange(this.getFilterData());
-    });
-  }
+  handleIncludeLoggersChanged = (selectedOptions) => { this.changeSelected('includeLoggers', selectedOptions); }
+
+  handleExcludeLoggersChanged = (selectedOptions) => { this.changeSelected('excludeLoggers', selectedOptions); }
 
   getFilterData() {
     return {
@@ -72,19 +44,8 @@ class Filter extends React.Component
   render() {
     var {isOpened} = this.props;
 
-    console.log('isOpened - ', isOpened)
     if( !isOpened ) return null;
 
-    return this.renderOpened();
-
-//    return (
-//      <div className="filter">
-//        <p onClick={this.handleOpenFilter}>Filter</p>
-//      </div>
-//    );
-  }
-
-  renderOpened() {
     const {avLogLevles, avLoggers} = this.props;
 
     return (
