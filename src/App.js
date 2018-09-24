@@ -6,6 +6,7 @@ import FileChooser from './FileChooser'
 import PaginatedLogMessagesList from './PaginatedLogMessagesList'
 import Filter from './Filter'
 import FilterNav from './FilterNav'
+import NavItem from './NavItem'
 import Settings from './Settings'
 
 import './App.css'
@@ -14,6 +15,7 @@ class App extends React.Component
 {
   state = {
     isFilterOpened: false,
+    isSettingsOpened: false,
     defaultLogMessages: null,
     logMessages: null,
     settings: {
@@ -22,13 +24,13 @@ class App extends React.Component
     }
   }
 
-  handleShowFilter = () => {
-    this.setState({isFilterOpened: true})
-  }
+  handleShowFilter = () => { this.setState({isFilterOpened: true}) }
 
-  handleCloseFilter = () => {
-    this.setState({isFilterOpened: false})
-  }
+  handleCloseFilter = () => { this.setState({isFilterOpened: false}) }
+
+  handleShowSettings = () => { this.setState({isSettingsOpened: true}) }
+
+  handleCloseSettings = () => { this.setState({isSettingsOpened: false}) }
 
   handleFilterChanged = (filter) => {
     var newLogMessages = this.state.defaultLogMessages || []
@@ -104,29 +106,34 @@ class App extends React.Component
     var loggers = this.getLoggers(defaultLogMessages);
 
     return (
-      <div>
+      <div className="app">
+        <div className="headerInlineBlock">
+
         <div className="header">
           <div className="navItem">
             <FilterNav onChange={this.handleShowFilter} />
           </div>
-          <div className="navItem">Settings</div>
+          <div className="navItem">
+            <NavItem label="Settings" onClick={this.handleShowSettings} />
+          </div>
           <div className="fileChooser">
             <FileChooser handleFileRead={this.handleFileRead} />
           </div>
         </div>
+        </div>
         <div>
           {this.renderFilter(logLevels,loggers)}
-          <Settings settings={settings}
-                    onChange={this.handleSettingsChanged}/>
+          {this.renderSettings()}
         </div>
-        <PaginatedLogMessagesList logMessages={logMessages} settings={settings} perPage={500} />
+        <div className="messagesList">
+          <PaginatedLogMessagesList logMessages={logMessages} settings={settings} perPage={500} />
+        </div>
       </div>
     )
   }
 
   renderFilter(logLevels, loggers) {
     const {isFilterOpened} = this.state;
-//    if (!isFilterOpened) return;
 
     return (
       <Filter isOpened={isFilterOpened}
@@ -134,12 +141,19 @@ class App extends React.Component
               avLoggers={loggers}
               onClose={this.handleCloseFilter}
               onChange={this.handleFilterChanged} />
-    );
+    );    
   }
 
-//  <Filter avLogLevles = {logLevels}
-//  avLoggers={loggers}
-//  onChange={this.handleFilterChanged} />
+  renderSettings() {
+    const {isSettingsOpened, settings} = this.state;
+
+    return (
+      <Settings isOpened={isSettingsOpened}
+                settings={settings}
+                onClose={this.handleCloseSettings}
+                onChange={this.handleSettingsChanged}/>
+    );
+  }
 
 }
 

@@ -1,10 +1,13 @@
 .filter {
+  display: block;
   border: 1px dashed #999;
 /*  position: relative;*/
 /*  float: right;*/
   max-width: 50%;
   background-color: chartreuse;
-  clear: both;
+/*  clear: both;*/
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .filter_opened {

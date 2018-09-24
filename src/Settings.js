@@ -16,6 +16,9 @@ class Settings extends React.Component
 
   handleCloseSettings = () => {
     this.setState({ isOpened: false });
+  
+    const {onClose} = this.props;
+    onClose();
   }
 
   handleFormatSqlClicked = (event) => {
@@ -44,16 +47,11 @@ class Settings extends React.Component
   }
 
   render() {
-    var {isOpened} = this.state;
+    var {isOpened} = this.props;
 
-    if( isOpened )
-      return this.renderOpened();
+    if( !isOpened ) return null;
 
-    return (
-      <div className="settings">
-        <p onClick={this.handleOpenSettings}>Settings</p>
-      </div>
-    );
+    return this.renderOpened();
   }
 
   renderOpened() {
