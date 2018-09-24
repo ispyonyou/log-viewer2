@@ -1,7 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
+import {closeFilter} from './AC'
 
 class Filter extends React.Component
 {
@@ -13,8 +15,7 @@ class Filter extends React.Component
   }
 
   handleCloseFilter = () => {
-    const {onClose} = this.props;
-    onClose();
+    this.props.closeFilter();
   }
 
   changeSelected(filedName, selectedOptions) {
@@ -42,11 +43,8 @@ class Filter extends React.Component
   }
 
   render() {
-    var {isOpened} = this.props;
-
+    var {isOpened, avLogLevels, avLoggers} = this.props;
     if( !isOpened ) return null;
-
-    const {avLogLevels, avLoggers} = this.props;
 
     return (
       <div className="filter filter_opened">
@@ -76,4 +74,6 @@ class Filter extends React.Component
   }
 }
 
-export default Filter
+export default connect((state) => ({
+  isOpened: state.navUi.isFilterOpen
+}), {closeFilter})(Filter)

@@ -1,6 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import './Settings.css'
+import {closeSettings} from './AC'
 
 class Settings extends React.Component
 {
@@ -9,7 +11,7 @@ class Settings extends React.Component
     highlightSql: true,
   }
 
-  handleCloseSettings = () => { this.props.onClose(); }
+  handleCloseSettings = () => { this.props.closeSettings(); }
 
   handleCheckChanged = (fieldName, event) => {
     this.setState({[fieldName]: event.target.checked}, () => {
@@ -51,4 +53,6 @@ class Settings extends React.Component
   }
 }
 
-export default Settings
+export default connect((state) => ({
+  isOpened: state.navUi.isSettingsOpen
+}), {closeSettings})(Settings)
