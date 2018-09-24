@@ -91,12 +91,12 @@ class App extends React.Component
   getLoggers(logMessages) {
     if(!logMessages) return [];
 
-    var logegrssSet = new Set();
+    var loggersSet = new Set();
     logMessages.forEach( (msg) => {
-      logegrssSet.add(msg.lgr);
+      loggersSet.add(msg.lgr);
     });
 
-    return [...logegrssSet];
+    return [...loggersSet];
   }
 
   render() {
@@ -136,7 +136,7 @@ class App extends React.Component
 
     return (
       <Filter isOpened={isFilterOpened}
-              avLogLevles = {logLevels}
+              avLogLevels = {logLevels}
               avLoggers={loggers}
               onClose={this.handleCloseFilter}
               onChange={this.handleFilterChanged} />

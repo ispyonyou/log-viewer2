@@ -8,18 +8,16 @@ class LogLevelsFilter extends React.Component
     }
 
     handleChange = (selectedOptions) => {
-        const { onChange } = this.props;
-        onChange(selectedOptions);
-
-
-        this.setState({selectedOptions});
+        this.setState({selectedOptions}, () => {
+            this.props.onChange(selectedOptions)
+        });
     }
 
     render() {
         const { selectedOptions } = this.state;
-        const { avLogLevles, onChange } = this.props;
+        const { avLogLevels } = this.props;
 
-        var options = avLogLevles.map( level => { return { value: level, label: level } } )
+        var options = avLogLevels.map( level => { return { value: level, label: level } } )
 
         return (
             <Select value={selectedOptions}

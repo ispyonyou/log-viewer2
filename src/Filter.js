@@ -46,7 +46,7 @@ class Filter extends React.Component
 
     if( !isOpened ) return null;
 
-    const {avLogLevles, avLoggers} = this.props;
+    const {avLogLevels, avLoggers} = this.props;
 
     return (
       <div className="filter filter_opened">
@@ -54,19 +54,19 @@ class Filter extends React.Component
           <div>
             <div className="label" style= {{float: "left"}}>
               Include levels: </div>
-            <LogLevelsFilter avLogLevles={avLogLevles}
+            <LogLevelsFilter avLogLevels={avLogLevels}
                              onChange={this.handleIncludeLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
               Exclude levels: </div>
-            <LogLevelsFilter avLogLevles={avLogLevles}
+            <LogLevelsFilter avLogLevels={avLogLevels}
                              onChange={this.handleExcludeLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
               Include loggers: </div>
-            <LogLevelsFilter avLogLevles={avLoggers}
+            <LogLevelsFilter avLogLevels={avLoggers}
                              onChange={this.handleIncludeLoggersChanged}/>
             <div className="label" style= {{float: "left"}}>
               Exclude loggers: </div>
-            <LogLevelsFilter avLogLevles={avLoggers}
+            <LogLevelsFilter avLogLevels={avLoggers}
                              onChange={this.handleExcludeLoggersChanged}/>
           </div>
         </form>
