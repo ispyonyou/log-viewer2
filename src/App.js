@@ -23,11 +23,11 @@ class App extends React.Component
     }
   }
 
-  handleShowFilter = () => { this.setState({isFilterOpened: true}) }
+  handleShowFilter = () => { this.setState({isFilterOpened: !this.state.isFilterOpened}) }
 
   handleCloseFilter = () => { this.setState({isFilterOpened: false}) }
 
-  handleShowSettings = () => { this.setState({isSettingsOpened: true}) }
+  handleShowSettings = () => { this.setState({isSettingsOpened: !this.state.isSettingsOpened}) }
 
   handleCloseSettings = () => { this.setState({isSettingsOpened: false}) }
 
