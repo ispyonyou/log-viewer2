@@ -3,43 +3,34 @@ import {connect} from 'react-redux'
 
 import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
-import {closeFilter} from './AC'
+import {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
+  changeFltIncludeLoggers, changeFltExcludeLoggers} from './AC'
+
 
 class Filter extends React.Component
 {
-  state = {
-    includeLogLevels: [],
-    excludeLogLevels: [],
-    includeLoggers: [],
-    excludeLoggers: [],
-  }
-
   handleCloseFilter = () => {
     this.props.closeFilter();
   }
 
-  changeSelected(filedName, selectedOptions) {
-    var newSelOptions = selectedOptions.map(option => option.value);
-    this.setState({[filedName]: newSelOptions}, () => {
-      this.props.onChange(this.getFilterData());
-    });
+  handleIncludeLevelsChanged = (selectedOptions) => { 
+    this.props.changeFltIncludeLogLevevls(this.getSelectedValues(selectedOptions))
   }
 
-  handleIncludeLevelsChanged = (selectedOptions) => { this.changeSelected('includeLogLevels', selectedOptions); }
+  handleExcludeLevelsChanged = (selectedOptions) => { 
+    this.props.changeFltExcludeLogLevevls(this.getSelectedValues(selectedOptions))
+  }
 
-  handleExcludeLevelsChanged = (selectedOptions) => { this.changeSelected('excludeLogLevels', selectedOptions); }
+  handleIncludeLoggersChanged = (selectedOptions) => { 
+    this.props.changeFltIncludeLoggers(this.getSelectedValues(selectedOptions))
+  }
 
-  handleIncludeLoggersChanged = (selectedOptions) => { this.changeSelected('includeLoggers', selectedOptions); }
+  handleExcludeLoggersChanged = (selectedOptions) => {
+    this.props.changeFltExcludeLoggers(this.getSelectedValues(selectedOptions))
+  }
 
-  handleExcludeLoggersChanged = (selectedOptions) => { this.changeSelected('excludeLoggers', selectedOptions); }
-
-  getFilterData() {
-    return {
-      includeLogLevels: this.state.includeLogLevels,
-      excludeLogLevels: this.state.excludeLogLevels,
-      includeLoggers: this.state.includeLoggers,
-      excludeLoggers: this.state.excludeLoggers,
-      }
+  getSelectedValues(selectedOptions) {
+    return selectedOptions.map(option => option.value);
   }
 
   render() {
@@ -75,5 +66,7 @@ class Filter extends React.Component
 }
 
 export default connect((state) => ({
-  isOpened: state.navUi.isFilterOpen
-}), {closeFilter})(Filter)
+  isOpened: state.navUi.isFilterOpen,
+  includeLogLevels: state.filter.includeLogLevels,
+}), {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
+  changeFltIncludeLoggers, changeFltExcludeLoggers})(Filter)

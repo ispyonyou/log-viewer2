@@ -8,15 +8,13 @@ import NavItem from './NavItem'
 import Filter from './Filter'
 import Settings from './Settings'
 import {connect} from 'react-redux'
-import {toggleFilterIsOpened, toggleSettingsIsOpened} from './AC'
+import {toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages} from './AC'
 
 import './App.css'
 
 class App extends React.Component
 {
   state = {
-    defaultLogMessages: null,
-    logMessages: null,
     settings: {
       formatSql: true,
       highlightSql: true,
@@ -28,36 +26,6 @@ class App extends React.Component
   handleShowSettings = () => { this.props.toggleSettingsIsOpened() }
 
   handleCloseSettings = () => { this.setState({isSettingsOpened: false}) }
-
-  handleFilterChanged = (filter) => {
-    var newLogMessages = this.state.defaultLogMessages || []
-
-    if (filter.includeLogLevels.length) {
-      newLogMessages = newLogMessages.filter( logMessage => {
-        return filter.includeLogLevels.some(level => level === logMessage.lvl)
-      } );
-    }
-
-    if (filter.excludeLogLevels.length) {
-      newLogMessages = newLogMessages.filter( logMessage => {
-        return !filter.excludeLogLevels.some(level => level === logMessage.lvl)
-      } );
-    }
-
-    if (filter.includeLoggers.length) {
-      newLogMessages = newLogMessages.filter( logMessage => {
-        return filter.includeLoggers.some(logger => logger === logMessage.lgr)
-      } );
-    }
-
-    if (filter.excludeLoggers.length) {
-      newLogMessages = newLogMessages.filter( logMessage => {
-        return !filter.excludeLoggers.some(logger => logger === logMessage.lgr)
-      } );
-    }
-
-    this.setState({logMessages: newLogMessages})
-  }
 
   handleSettingsChanged = (newSettings) => {
     this.setState({settings: newSettings})
@@ -71,28 +39,27 @@ class App extends React.Component
     var newDefaultLogMessages = JSON.parse(jsonStr);
     var newDefaultLogMessages = newDefaultLogMessages.map(msg => {return {...msg, ...{ "id": idCounter++}}} );
 
-    this.setState( {
-      defaultLogMessages: newDefaultLogMessages,
-      logMessages: newDefaultLogMessages
-    } )
+    this.props.changeDefaultLogMessages(newDefaultLogMessages)
   }
 
-  getLogLevels(logMessages) {
-    if(!logMessages) return [];
+  getLogLevels() {
+    const { defaultLogMessages } = this.props
+    if (!defaultLogMessages) return [];
 
     var logLevelsSet = new Set();
-    logMessages.forEach( (msg) => {
+    defaultLogMessages.forEach( (msg) => {
       logLevelsSet.add(msg.lvl);
     });
 
     return [...logLevelsSet];
   }
 
-  getLoggers(logMessages) {
-    if(!logMessages) return [];
+  getLoggers() {
+    const { defaultLogMessages } = this.props
+    if (!defaultLogMessages) return [];
 
     var loggersSet = new Set();
-    logMessages.forEach( (msg) => {
+    defaultLogMessages.forEach( (msg) => {
       loggersSet.add(msg.lgr);
     });
 
@@ -100,9 +67,10 @@ class App extends React.Component
   }
 
   render() {
-    const {defaultLogMessages, logMessages, settings} = this.state;
-    var logLevels = this.getLogLevels(defaultLogMessages);
-    var loggers = this.getLoggers(defaultLogMessages);
+    const {settings} = this.state;
+    const {logMessages} = this.props;
+    var logLevels = this.getLogLevels();
+    var loggers = this.getLoggers();
 
     return (
       <div className="app">
@@ -133,8 +101,7 @@ class App extends React.Component
   renderFilter(logLevels, loggers) {
     return (
       <Filter avLogLevels = {logLevels}
-              avLoggers={loggers}
-              onChange={this.handleFilterChanged} />
+              avLoggers={loggers} />
     );    
   }
 
@@ -149,5 +116,35 @@ class App extends React.Component
 
 }
 
-export default connect(() =>({
-  }),{ toggleFilterIsOpened, toggleSettingsIsOpened })(App)
+export default connect((state) =>{
+  var newLogMessages = state.logMessages.defaultLogMessages
+
+  if (state.filter.includeLogLevels.length) {
+    newLogMessages = newLogMessages.filter( logMessage => {
+      return state.filter.includeLogLevels.some(level => level === logMessage.lvl)
+    } );
+  }
+
+  if (state.filter.excludeLogLevels.length) {
+    newLogMessages = newLogMessages.filter( logMessage => {
+      return !state.filter.excludeLogLevels.some(level => level === logMessage.lvl)
+    } );
+  }
+
+  if (state.filter.includeLoggers.length) {
+    newLogMessages = newLogMessages.filter( logMessage => {
+      return state.filter.includeLoggers.some(logger => logger === logMessage.lgr)
+    } );
+  }
+
+  if (state.filter.excludeLoggers.length) {
+    newLogMessages = newLogMessages.filter( logMessage => {
+      return !state.filter.excludeLoggers.some(logger => logger === logMessage.lgr)
+    } );
+  }
+
+  return { 
+    defaultLogMessages: state.logMessages.defaultLogMessages,
+    logMessages: newLogMessages,
+  }
+},{ toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages })(App)

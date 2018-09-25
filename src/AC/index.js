@@ -1,4 +1,6 @@
-import {CLOSE_FILTER, TOGGLE_FILTER_IS_OPENED, CLOSE_SETTINGS, TOGGLE_SETTINGS_IS_OPENED } from '../constants'
+import {CLOSE_FILTER, TOGGLE_FILTER_IS_OPENED, CLOSE_SETTINGS, TOGGLE_SETTINGS_IS_OPENED,
+  CHANGE_FLT_INCLUDE_LOG_LEVEVLS, CHANGE_FLT_EXCLUDE_LOG_LEVEVLS, CHANGE_FLT_INCLUDE_LOGGERS,
+  CHANGE_FLT_EXCLUDE_LOGGERS, CHANGE_DEFAULT_LOG_MESSAGES } from '../constants'
 
 export function closeFilter() {
   return {
@@ -21,5 +23,39 @@ export function closeSettings() {
 export function toggleSettingsIsOpened() {
   return {
     type: TOGGLE_SETTINGS_IS_OPENED
+  }
+}
+
+export function changeDefaultLogMessages(defaultLogMessages) {
+  return {
+    type: CHANGE_DEFAULT_LOG_MESSAGES,
+    payload: { defaultLogMessages }
+  }
+}
+export function changeFltIncludeLogLevevls(includeLogLevels) {
+  return {
+    type: CHANGE_FLT_INCLUDE_LOG_LEVEVLS,
+    payload: { includeLogLevels }
+  }
+}
+
+export function changeFltExcludeLogLevevls(excludeLogLevels) {
+  return {
+    type: CHANGE_FLT_EXCLUDE_LOG_LEVEVLS,
+    payload: { excludeLogLevels }
+  }
+}
+
+export function changeFltIncludeLoggers(includeLoggers) {
+  return {
+    type: CHANGE_FLT_INCLUDE_LOGGERS,
+    payload: { includeLoggers }
+  }
+}
+
+export function changeFltExcludeLoggers(excludeLoggers) {
+  return {
+    type: CHANGE_FLT_EXCLUDE_LOGGERS,
+    payload: { excludeLoggers }
   }
 }
