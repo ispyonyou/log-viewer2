@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import LogMessagesList from './LogMessagesList'
 import ReactPaginate from 'react-paginate'
+import LoadingWithLabel from './LoadingWithLabel'
 
 import './PaginatedLogMessagesList.css'
 import filter from './reducer/filter';
@@ -19,12 +20,17 @@ class PaginatedLogMessagesList extends React.Component
 
   render() {
     const {selectedPage} = this.state
-    const {logMessages, filtering, perPage, settings} = this.props    
+    const {logMessages, filtering, parsingFile, perPage, settings} = this.props    
 
     if (filtering) {
-      return <h2>Filtering...</h2>
+      return <LoadingWithLabel label="Фильрация..."/>
     }
-        
+
+    if(parsingFile) {
+      return <LoadingWithLabel label="Парсим файл..."/>
+    }
+
+
     if (!logMessages || !logMessages.length) return <p>No messages</p>
 
     let from = selectedPage * perPage;
