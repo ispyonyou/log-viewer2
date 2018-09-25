@@ -29,6 +29,7 @@ function filterLogMessages(filter, defaultLogMessages)
   return newLogMessages;
 }
 
+
 self.addEventListener('message', (event) => {
   const filteredMessages = filterLogMessages(event.data.filter, event.data.defaultLogMessages)
   self.postMessage(filteredMessages)

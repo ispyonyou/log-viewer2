@@ -22,24 +22,21 @@ class PaginatedLogMessagesList extends React.Component
     const {selectedPage} = this.state
     const {logMessages, filtering, parsingFile, perPage, settings} = this.props    
 
-    if (filtering) {
-      return <LoadingWithLabel label="Фильрация..."/>
-    }
-
-    if(parsingFile) {
-      return <LoadingWithLabel label="Парсим файл..."/>
-    }
-
-
     if (!logMessages || !logMessages.length) return <p>No messages</p>
 
     let from = selectedPage * perPage;
     var logMessagesForPage = logMessages.slice(from, from + perPage);
 
     let pagesCount = Math.ceil(logMessages.length / perPage);
+
+    let loading = null;
+    if (filtering) {
+      loading = <LoadingWithLabel label="Фильрация..."/>
+    }
   
     return (
         <div>
+          {loading}
           <ReactPaginate containerClassName={"pagination"}
                          subContainerClassName={"pages pagination"}
                          pageCount={pagesCount}

@@ -1,21 +1,27 @@
-import {START, FINISH} from '../constants'
+import {FILTER_LOG_MESSAGES, START, FINISH} from '../constants'
 import Worker from "worker-loader!../FilterWorker";
 
 const worker = new Worker();
 
-export default store => next => action => {
-  const {type, filterLogMessages} = action  
-  if (!filterLogMessages) return next(action)
+export default store => {
+  worker.onmessage = (event) => {
+    console.log(21)
+    store.dispatch({
+      type: FILTER_LOG_MESSAGES + FINISH,
+      filteredLogMessages: event.data})
+      console.log(22)
+    }
 
-  const state = store.getState()
+  return (next) => {
+    return (action) => {
+      const {type, filterLogMessages} = action  
+      if (!filterLogMessages) return next(action)
 
-  next({...action, type: type + START})
+      const state = store.getState()
 
-//  setTimeout(() => {
-    worker.postMessage({ filter: state.filter, defaultLogMessages: state.logMessages.defaultLogMessages });
-//  }, 1000)
+      next({...action, type: FILTER_LOG_MESSAGES + START})
 
-  worker.addEventListener("message", (event) => {
-    next({...action, type: type + FINISH, filteredLogMessages: event.data})
-  });
+      worker.postMessage({ filter: state.filter, defaultLogMessages: state.logMessages.defaultLogMessages });
+    }
+  }
 }
