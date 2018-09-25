@@ -2,26 +2,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import './Settings.css'
-import {closeSettings} from './AC'
+import {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql} from './AC'
 
 class Settings extends React.Component
 {
-  state = {
-    formatSql: true,
-    highlightSql: true,
-  }
-
   handleCloseSettings = () => { this.props.closeSettings(); }
 
-  handleCheckChanged = (fieldName, event) => {
-    this.setState({[fieldName]: event.target.checked}, () => {
-      this.props.onChange(this.getSettingsData());
-    });
+  handleFormatSqlClicked = (event) => { 
+    this.props.changeSettingsFormatSql(event.target.checked);
   }
 
-  handleFormatSqlClicked = (event) => { this.handleCheckChanged( 'formatSql', event ); }
-
-  handleHighlightSqlClicked = (event) => { this.handleCheckChanged( 'highlightSql', event ); }
+  handleHighlightSqlClicked = (event) => { 
+    this.props.changeSettingsHighlightSql(event.target.checked);
+  }
 
   getSettingsData() {
     return {
@@ -31,11 +24,9 @@ class Settings extends React.Component
   }
 
   render() {
-    var {isOpened} = this.props;
+    var {isOpened, formatSql, highlightSql} = this.props;
 
     if( !isOpened ) return null;
-
-    const {formatSql, highlightSql} = this.state
 
     return (
       <div className="settings settings_opened">
@@ -54,5 +45,7 @@ class Settings extends React.Component
 }
 
 export default connect((state) => ({
-  isOpened: state.navUi.isSettingsOpen
-}), {closeSettings})(Settings)
+  isOpened: state.navUi.isSettingsOpen,
+  formatSql: state.settings.formatSql,
+  highlightSql: state.settings.highlightSql,
+}), {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql})(Settings)

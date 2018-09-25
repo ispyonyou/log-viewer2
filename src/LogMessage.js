@@ -1,6 +1,7 @@
 import React from 'react'
 import Highlight from 'react-highlight'
 import sqlFormatter from 'sql-formatter'
+import {connect} from 'react-redux'
 
 import './Highlight.css'
 import './LogMessage.css'
@@ -22,8 +23,8 @@ class LogMessage extends React.Component
   }
 
   getLogMessage() {
-    const {settings} = this.props
-    const {lgr, msg} = this.props.logMessage;
+    const {formatSql, highlightSql, logMessage} = this.props
+    const {lgr, msg} = logMessage;
 
     var msgText = msg;
 
@@ -32,7 +33,7 @@ class LogMessage extends React.Component
       msgText = this.getSqlLogMessageText(msg);
     }
 
-    if (isSql && settings.highlightSql ) {
+    if (isSql && highlightSql ) {
       return (
         <Highlight className="sql">{msgText}</Highlight>
       )
@@ -42,9 +43,7 @@ class LogMessage extends React.Component
   }
 
   getSqlLogMessageText(msg) {
-    const {settings} = this.props;
-
-    if(!settings.formatSql) {
+    if(!this.props.formatSql) {
       return msg;
     }
 
@@ -52,4 +51,7 @@ class LogMessage extends React.Component
   }
 }
 
-export default LogMessage
+export default connect((state)=>({
+  formatSql: state.settings.formatSql,
+  highlightSql: state.settings.highlightSql,
+}),{})(LogMessage)

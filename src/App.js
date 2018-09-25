@@ -14,22 +14,11 @@ import './App.css'
 
 class App extends React.Component
 {
-  state = {
-    settings: {
-      formatSql: true,
-      highlightSql: true,
-    }
-  }
-
   handleShowFilter = () => { this.props.toggleFilterIsOpened() }
 
   handleShowSettings = () => { this.props.toggleSettingsIsOpened() }
 
   handleCloseSettings = () => { this.setState({isSettingsOpened: false}) }
-
-  handleSettingsChanged = (newSettings) => {
-    this.setState({settings: newSettings})
-  }
 
   handleFileRead = (e) => {
     var jsonStr = "[" + e.target.result
@@ -44,8 +33,7 @@ class App extends React.Component
 
   getLogLevels() {
     const { defaultLogMessages } = this.props
-    if (!defaultLogMessages) return [];
-
+ 
     var logLevelsSet = new Set();
     defaultLogMessages.forEach( (msg) => {
       logLevelsSet.add(msg.lvl);
@@ -56,8 +44,7 @@ class App extends React.Component
 
   getLoggers() {
     const { defaultLogMessages } = this.props
-    if (!defaultLogMessages) return [];
-
+ 
     var loggersSet = new Set();
     defaultLogMessages.forEach( (msg) => {
       loggersSet.add(msg.lgr);
@@ -67,7 +54,6 @@ class App extends React.Component
   }
 
   render() {
-    const {settings} = this.state;
     const {logMessages} = this.props;
     var logLevels = this.getLogLevels();
     var loggers = this.getLoggers();
@@ -88,32 +74,16 @@ class App extends React.Component
           </div>
         </div>
         <div>
-          {this.renderFilter(logLevels,loggers)}
-          {this.renderSettings()}
+          <Filter avLogLevels = {logLevels}
+                  avLoggers={loggers} />
+          <Settings />
         </div>
         <div className="messagesList">
-          <PaginatedLogMessagesList logMessages={logMessages} settings={settings} perPage={500} />
+          <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />
         </div>
       </div>
     )
   }
-
-  renderFilter(logLevels, loggers) {
-    return (
-      <Filter avLogLevels = {logLevels}
-              avLoggers={loggers} />
-    );    
-  }
-
-  renderSettings() {
-    const { settings} = this.state;
-
-    return (
-      <Settings settings={settings}
-                onChange={this.handleSettingsChanged}/>
-    );
-  }
-
 }
 
 export default connect((state) =>{
