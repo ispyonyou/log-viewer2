@@ -87,34 +87,34 @@ class App extends React.Component
 }
 
 export default connect((state) =>{
-  var newLogMessages = state.logMessages.defaultLogMessages
-
-  if (state.filter.includeLogLevels.length) {
-    newLogMessages = newLogMessages.filter( logMessage => {
-      return state.filter.includeLogLevels.some(level => level === logMessage.lvl)
-    } );
-  }
-
-  if (state.filter.excludeLogLevels.length) {
-    newLogMessages = newLogMessages.filter( logMessage => {
-      return !state.filter.excludeLogLevels.some(level => level === logMessage.lvl)
-    } );
-  }
-
-  if (state.filter.includeLoggers.length) {
-    newLogMessages = newLogMessages.filter( logMessage => {
-      return state.filter.includeLoggers.some(logger => logger === logMessage.lgr)
-    } );
-  }
-
-  if (state.filter.excludeLoggers.length) {
-    newLogMessages = newLogMessages.filter( logMessage => {
-      return !state.filter.excludeLoggers.some(logger => logger === logMessage.lgr)
-    } );
-  }
+//  var newLogMessages = state.logMessages.defaultLogMessages
+//
+//  if (state.filter.includeLogLevels.length) {
+//    newLogMessages = newLogMessages.filter( logMessage => {
+//      return state.filter.includeLogLevels.some(level => level === logMessage.lvl)
+//    } );
+//  }
+//
+//  if (state.filter.excludeLogLevels.length) {
+//    newLogMessages = newLogMessages.filter( logMessage => {
+//      return !state.filter.excludeLogLevels.some(level => level === logMessage.lvl)
+//    } );
+//  }
+//
+//  if (state.filter.includeLoggers.length) {
+//    newLogMessages = newLogMessages.filter( logMessage => {
+//      return state.filter.includeLoggers.some(logger => logger === logMessage.lgr)
+//    } );
+//  }
+//
+//  if (state.filter.excludeLoggers.length) {
+//    newLogMessages = newLogMessages.filter( logMessage => {
+//      return !state.filter.excludeLoggers.some(logger => logger === logMessage.lgr)
+//    } );
+//  }
 
   return { 
     defaultLogMessages: state.logMessages.defaultLogMessages,
-    logMessages: newLogMessages,
+    logMessages: state.logMessages.logMessages,
   }
 },{ toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages })(App)

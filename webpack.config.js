@@ -9,7 +9,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/',
+    globalObject: 'self'
   },
   module: {
     rules: [
@@ -21,6 +22,10 @@ module.exports = {
         test: /\.js/,
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
       }
     ]
   }

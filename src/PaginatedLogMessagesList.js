@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import LogMessagesList from './LogMessagesList'
 import ReactPaginate from 'react-paginate'
 
 import './PaginatedLogMessagesList.css'
+import filter from './reducer/filter';
 
 class PaginatedLogMessagesList extends React.Component
 {
@@ -17,7 +19,11 @@ class PaginatedLogMessagesList extends React.Component
 
   render() {
     const {selectedPage} = this.state
-    const {logMessages, perPage, settings} = this.props    
+    const {logMessages, filtering, perPage, settings} = this.props    
+
+    if (filtering) {
+      return <h2>Filtering...</h2>
+    }
         
     if (!logMessages || !logMessages.length) return <p>No messages</p>
 
@@ -39,4 +45,8 @@ class PaginatedLogMessagesList extends React.Component
   }
 }
 
-export default PaginatedLogMessagesList
+export default connect((state) => {
+  return {
+    filtering: state.logMessages.filtering,
+  }
+},{})(PaginatedLogMessagesList)

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
 import {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
-  changeFltIncludeLoggers, changeFltExcludeLoggers} from './AC'
+  changeFltIncludeLoggers, changeFltExcludeLoggers, filterLogMessages} from './AC'
 
 
 class Filter extends React.Component
@@ -15,6 +15,7 @@ class Filter extends React.Component
 
   handleIncludeLevelsChanged = (selectedOptions) => { 
     this.props.changeFltIncludeLogLevevls(this.getSelectedValues(selectedOptions))
+    this.props.filterLogMessages()
   }
 
   handleExcludeLevelsChanged = (selectedOptions) => { 
@@ -69,4 +70,4 @@ export default connect((state) => ({
   isOpened: state.navUi.isFilterOpen,
   includeLogLevels: state.filter.includeLogLevels,
 }), {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
-  changeFltIncludeLoggers, changeFltExcludeLoggers})(Filter)
+  changeFltIncludeLoggers, changeFltExcludeLoggers, filterLogMessages})(Filter)
