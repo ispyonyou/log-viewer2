@@ -31,7 +31,7 @@ class Filter extends React.Component
   }
 
   getSelectedValues(selectedOptions) {
-    return selectedOptions.map(option => option.value);
+    return selectedOptions.map(option => option.value).sort();
   }
 
   render() {

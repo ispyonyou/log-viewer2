@@ -34,8 +34,8 @@ class App extends React.Component
 
     const filteredLoggers = this.getLoggers().filter(lgr => lgr !== 'COmpGlobalFC' )
 
-    this.props.changeFltLogLevels(this.getLogLevels())
-    this.props.changeFltLoggers(filteredLoggers)
+    this.props.changeFltLogLevels(this.getLogLevels().sort())
+    this.props.changeFltLoggers(filteredLoggers.sort())
 
     this.props.filterLogMessages()
   }

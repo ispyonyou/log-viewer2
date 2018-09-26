@@ -4,7 +4,8 @@ import LoadingWithLabel from './LoadingWithLabel'
 class FileChooser extends React.Component
 {
   state = {
-    isReading: false
+    isReading: false,
+    fileName: 'Выберите файл',
   }
 
   handleFileRead = (e) => {
@@ -14,8 +15,10 @@ class FileChooser extends React.Component
   }
 
   handleChange(file) {
-    var {handleFileRead} = this.props
-    this.setState({isReading: true})
+    this.setState({
+      fileName: file.name, 
+      isReading: true,
+    })
 
     var fileReader = new FileReader();
     fileReader.onloadend = this.handleFileRead;
@@ -32,7 +35,12 @@ class FileChooser extends React.Component
       )
     }
 
-    return <input type="file" onChange={ (e) => this.handleChange( e.target.files[0] )}></input>
+    return (
+      <div style={{display: 'inline-block'}}>
+        <input type="file" id="fileChooser" onChange={ (e) => this.handleChange( e.target.files[0] )} style={{display: 'none', opacity:0, width:0}}></input>
+        <label htmlFor="fileChooser">{this.state.fileName}</label>
+      </div>
+    )
   }
 }
 
