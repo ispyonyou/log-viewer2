@@ -1,6 +1,7 @@
 import {CLOSE_FILTER, TOGGLE_FILTER_IS_OPENED, CLOSE_SETTINGS, TOGGLE_SETTINGS_IS_OPENED,
   CHANGE_FLT_INCLUDE_LOG_LEVEVLS, CHANGE_FLT_EXCLUDE_LOG_LEVEVLS, CHANGE_FLT_INCLUDE_LOGGERS,
-  CHANGE_FLT_EXCLUDE_LOGGERS, CHANGE_DEFAULT_LOG_MESSAGES, CHANGE_SETTINGS_FORMAT_SQL,
+  CHANGE_FLT_EXCLUDE_LOGGERS, CHANGE_FLT_LOG_LEVELS, CHANGE_FLT_LOGGERS, 
+  CHANGE_DEFAULT_LOG_MESSAGES, CHANGE_SETTINGS_FORMAT_SQL,
   CHANGE_SETTINGS_HIGHLIGHT_SQL, FILTER_LOG_MESSAGES
 } from '../constants'
 
@@ -34,31 +35,18 @@ export function changeDefaultLogMessages(defaultLogMessages) {
     payload: { defaultLogMessages }
   }
 }
-export function changeFltIncludeLogLevevls(includeLogLevels) {
+
+export function changeFltLogLevels(logLevels) {
   return {
-    type: CHANGE_FLT_INCLUDE_LOG_LEVEVLS,
-    payload: { includeLogLevels }
+    type: CHANGE_FLT_LOG_LEVELS,
+    payload: { logLevels }
   }
 }
 
-export function changeFltExcludeLogLevevls(excludeLogLevels) {
+export function changeFltLoggers(loggers) {
   return {
-    type: CHANGE_FLT_EXCLUDE_LOG_LEVEVLS,
-    payload: { excludeLogLevels }
-  }
-}
-
-export function changeFltIncludeLoggers(includeLoggers) {
-  return {
-    type: CHANGE_FLT_INCLUDE_LOGGERS,
-    payload: { includeLoggers }
-  }
-}
-
-export function changeFltExcludeLoggers(excludeLoggers) {
-  return {
-    type: CHANGE_FLT_EXCLUDE_LOGGERS,
-    payload: { excludeLoggers }
+    type: CHANGE_FLT_LOGGERS,
+    payload: { loggers }
   }
 }
 

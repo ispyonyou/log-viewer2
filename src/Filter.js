@@ -3,8 +3,10 @@ import {connect} from 'react-redux'
 
 import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
-import {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
-  changeFltIncludeLoggers, changeFltExcludeLoggers, filterLogMessages} from './AC'
+
+import {closeFilter, filterLogMessages, changeFltLogLevels,
+  changeFltLoggers
+} from './AC'
 
 
 class Filter extends React.Component
@@ -13,21 +15,19 @@ class Filter extends React.Component
     this.props.closeFilter();
   }
 
-  handleIncludeLevelsChanged = (selectedOptions) => { 
-    this.props.changeFltIncludeLogLevevls(this.getSelectedValues(selectedOptions))
+  handleLevelsChanged = (selectedOptions) => {
+    this.props.changeFltLogLevels(this.getSelectedValues(selectedOptions))
     this.props.filterLogMessages()
   }
 
-  handleExcludeLevelsChanged = (selectedOptions) => { 
-    this.props.changeFltExcludeLogLevevls(this.getSelectedValues(selectedOptions))
+  handleLoggersChanged = (selectedOptions) => {
+    this.props.changeFltLoggers(this.getSelectedValues(selectedOptions))
+    this.props.filterLogMessages()
   }
 
-  handleIncludeLoggersChanged = (selectedOptions) => { 
-    this.props.changeFltIncludeLoggers(this.getSelectedValues(selectedOptions))
-  }
-
-  handleExcludeLoggersChanged = (selectedOptions) => {
-    this.props.changeFltExcludeLoggers(this.getSelectedValues(selectedOptions))
+  handleIncludeLevelsChanged = (selectedOptions) => { 
+    this.props.changeFltIncludeLogLevevls(this.getSelectedValues(selectedOptions))
+    this.props.filterLogMessages()
   }
 
   getSelectedValues(selectedOptions) {
@@ -35,29 +35,26 @@ class Filter extends React.Component
   }
 
   render() {
-    var {isOpened, avLogLevels, avLoggers} = this.props;
+    const {isOpened, avLogLevels, avLoggers, logLevels, loggers} = this.props;
     if( !isOpened ) return null;
+
+    const sortedLogLevels = avLogLevels.sort();
+    const sortedLoggers = avLoggers.sort();
 
     return (
       <div className="filter filter_opened">
         <form>
           <div>
             <div className="label" style= {{float: "left"}}>
-              Include levels: </div>
-            <SimpleMultiSelect options={avLogLevels}
-                               onChange={this.handleIncludeLevelsChanged}/>
+              Уровни: </div>
+            <SimpleMultiSelect options={sortedLogLevels}
+                               defaultValue={logLevels}
+                               onChange={this.handleLevelsChanged}/>
             <div className="label" style= {{float: "left"}}>
-              Exclude levels: </div>
-            <SimpleMultiSelect options={avLogLevels}
-                               onChange={this.handleExcludeLevelsChanged}/>
-            <div className="label" style= {{float: "left"}}>
-              Include loggers: </div>
-            <SimpleMultiSelect options={avLoggers}
-                               onChange={this.handleIncludeLoggersChanged}/>
-            <div className="label" style= {{float: "left"}}>
-              Exclude loggers: </div>
-            <SimpleMultiSelect options={avLoggers}
-                               onChange={this.handleExcludeLoggersChanged}/>
+              Логгеры: </div>
+            <SimpleMultiSelect options={sortedLoggers}
+                               defaultValue={loggers}
+                               onChange={this.handleLoggersChanged}/>
           </div>
         </form>
         <p onClick={this.handleCloseFilter}>Close Filter</p>
@@ -68,6 +65,8 @@ class Filter extends React.Component
 
 export default connect((state) => ({
   isOpened: state.navUi.isFilterOpen,
-  includeLogLevels: state.filter.includeLogLevels,
-}), {closeFilter, changeFltIncludeLogLevevls, changeFltExcludeLogLevevls, 
-  changeFltIncludeLoggers, changeFltExcludeLoggers, filterLogMessages})(Filter)
+  logLevels: state.filter.logLevels,
+  loggers: state.filter.loggers,
+}), {closeFilter, filterLogMessages, 
+  changeFltLogLevels, changeFltLoggers
+})(Filter)

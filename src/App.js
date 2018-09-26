@@ -8,7 +8,9 @@ import NavItem from './NavItem'
 import Filter from './Filter'
 import Settings from './Settings'
 import {connect} from 'react-redux'
-import {toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages} from './AC'
+import {toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages,
+  changeFltLogLevels, changeFltLoggers, filterLogMessages
+} from './AC'
 
 import './App.css'
 
@@ -29,6 +31,13 @@ class App extends React.Component
     var newDefaultLogMessages = newDefaultLogMessages.map(msg => {return {...msg, ...{ "id": idCounter++}}} );
 
     this.props.changeDefaultLogMessages(newDefaultLogMessages)
+
+    const filteredLoggers = this.getLoggers().filter(lgr => lgr !== 'COmpGlobalFC' )
+
+    this.props.changeFltLogLevels(this.getLogLevels())
+    this.props.changeFltLoggers(filteredLoggers)
+
+    this.props.filterLogMessages()
   }
 
   getLogLevels() {
@@ -91,4 +100,6 @@ export default connect((state) =>{
     defaultLogMessages: state.logMessages.defaultLogMessages,
     logMessages: state.logMessages.logMessages,
   }
-},{ toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages })(App)
+},{ toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages,
+  changeFltLogLevels, changeFltLoggers, filterLogMessages
+ })(App)

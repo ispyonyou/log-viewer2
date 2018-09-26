@@ -1,6 +1,19 @@
 import React from 'react'
 import Select from 'react-select'
 
+const ClearIndicatorStyles = (base, state) => ({
+    ...base,
+    cursor: 'pointer',
+    color: state.isFocused ? 'blue' : 'black',
+  });
+
+const ContainerStyles = (base, state) => ({
+    ...base,
+    cursor: 'pointer',
+    color: state.isFocused ? 'red' : 'black',
+    backgroundColor: 'red'
+  });
+
 class SimpleMultiSelect extends React.Component
 {
     state = {
@@ -8,22 +21,30 @@ class SimpleMultiSelect extends React.Component
     }
 
     handleChange = (selectedOptions) => {
-        this.setState({selectedOptions}, () => {
-            this.props.onChange(selectedOptions)
-        });
+        console.log(selectedOptions)
+//        this.setState({selectedOptions}, () => {
+//            this.props.onChange(selectedOptions)
+//        });
+        this.props.onChange(selectedOptions)
     }
 
     render() {
         const { selectedOptions } = this.state;
-        const { options } = this.props;
+        const { options, defaultValue } = this.props;
 
-        var optionsForSelect = options.map( level => { return { value: level, label: level } } )
+        const optionsForSelect = options.map( v => { return { value: v, label: v } } );
+        let defaultValueForSelect = [];
+        if( defaultValue ) {
+            defaultValueForSelect = defaultValue.map( v => { return { value: v, label: v } } )
+        }
 
         return (
-            <Select value={selectedOptions}
+            <Select value={defaultValueForSelect}
               onChange={this.handleChange}
               options={optionsForSelect}
               isMulti
+              closeMenuOnSelect={false}
+              hideSelectedOptions={false}
             />
         )
     }
