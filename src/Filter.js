@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import './Filter.css'
+//import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
 
 import {closeFilter, filterLogMessages, changeFltLogLevels,
@@ -35,14 +35,13 @@ class Filter extends React.Component
   }
 
   render() {
-    const {isOpened, avLogLevels, avLoggers, logLevels, loggers} = this.props;
-    if( !isOpened ) return null;
+    const {avLogLevels, avLoggers, logLevels, loggers} = this.props;
 
     const sortedLogLevels = avLogLevels.sort();
     const sortedLoggers = avLoggers.sort();
 
     return (
-      <div className="filter filter_opened">
+      <div className="filter">
         <form>
           <div>
             <div className="label" style= {{float: "left"}}>
@@ -57,14 +56,13 @@ class Filter extends React.Component
                                onChange={this.handleLoggersChanged}/>
           </div>
         </form>
-        <p onClick={this.handleCloseFilter}>Close Filter</p>
+        <p className="btn  close_btn" onClick={this.handleCloseFilter}>Close Filter</p>
       </div>
     );
   }
 }
 
 export default connect((state) => ({
-  isOpened: state.navUi.isFilterOpen,
   logLevels: state.filter.logLevels,
   loggers: state.filter.loggers,
 }), {closeFilter, filterLogMessages, 

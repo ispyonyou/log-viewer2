@@ -1,0 +1,80 @@
+.ModalOverlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.ModalContent {
+  position: absolute;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+
+  top: 40px;
+  left: 40px;
+  right: 40px;
+/*  bottom: 40px;*/
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(124, 167, 164);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.btn {
+  display: block;
+  text-decoration: underline;
+}
+
+.btn:hover {
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+  text-decoration: none;
+}
+
+.filter {
+  display: block;
+/*  border: 1px dashed #999;*/
+/*  position: relative;*/
+/*  float: right;*/
+/*  max-width: 50%;*/
+/*  background-color: chartreuse;*/
+/*  clear: both;*/
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.filter .label {
+  width: 8em;
+}
+
+.filter .close_btn {
+/*  display: block;*/
+/*  text-decoration: underline;*/
+/*  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);*/
+  float: right;
+}
+
+.settings {
+  display: block;
+
+/*  border: 1px dashed #999;*/
+/*  float: right;*/
+/*  max-width: 50%;*/
+/*  background-color: orange;*/
+/*  margin-top: 10px;*/
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.settings .label {
+  width: 8em;
+}
+
+.settings .close_btn {
+  float: right;
+}
+  

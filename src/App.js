@@ -5,8 +5,8 @@ import React from 'react'
 import FileChooser from './FileChooser'
 import PaginatedLogMessagesList from './PaginatedLogMessagesList'
 import NavItem from './NavItem'
-import Filter from './Filter'
-import Settings from './Settings'
+import FilterModal from './FilterModal'
+import SettingsModal from './SettingsModal'
 import {connect} from 'react-redux'
 import {toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages,
   changeFltLogLevels, changeFltLoggers, filterLogMessages
@@ -83,9 +83,9 @@ class App extends React.Component
           </div>
         </div>
         <div>
-          <Filter avLogLevels = {logLevels}
-                  avLoggers={loggers} />
-          <Settings />
+          <FilterModal avLogLevels = {logLevels}
+                       avLoggers={loggers} />
+          <SettingsModal />
         </div>
         <div className="messagesList">
           <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />

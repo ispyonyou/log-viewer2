@@ -28,5 +28,8 @@ module.exports = {
         use: { loader: 'worker-loader' }
       }
     ]
-  }
+  }/*,
+  devServer: {
+    contentBase: path.join(__dirname, 'public'), 
+  }*/
 }

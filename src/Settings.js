@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import './Settings.css'
 import {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql} from './AC'
 
 class Settings extends React.Component
@@ -24,9 +23,7 @@ class Settings extends React.Component
   }
 
   render() {
-    var {isOpened, formatSql, highlightSql} = this.props;
-
-    if( !isOpened ) return null;
+    var {formatSql, highlightSql} = this.props;
 
     return (
       <div className="settings settings_opened">
@@ -38,14 +35,13 @@ class Settings extends React.Component
             <input type="checkbox" id="highlight_sql" checked={highlightSql} onChange={this.handleHighlightSqlClicked}/>
             <label htmlFor="highlight_sql"> Подсвечивать SQL</label>
           </div>
-          <p onClick={this.handleCloseSettings}>Close Settings</p>
+          <p className="btn close_btn" onClick={this.handleCloseSettings}>Close Settings</p>
       </div>
     );
   }
 }
 
 export default connect((state) => ({
-  isOpened: state.navUi.isSettingsOpen,
   formatSql: state.settings.formatSql,
   highlightSql: state.settings.highlightSql,
 }), {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql})(Settings)
