@@ -13,7 +13,7 @@
   margin-left:auto;
   margin-right:auto;
 
-  top: 40px;
+  top: 140px;
   left: 40px;
   right: 40px;
 /*  bottom: 40px;*/
@@ -45,6 +45,26 @@
 /*  clear: both;*/
   margin-left:auto;
   margin-right:auto;
+}
+
+.filter .container {
+  display: flex;
+}
+
+.filter .container > div {
+  flex: 1;
+}
+
+.filter .container > div:nth-of-type(1n+2) {
+  margin-left: 20px;
+}
+
+.filter select {
+  display: block;
+  width: 100%;
+/*  min-width: 100px;*/
+/*  margin-left:auto;*/
+/*  margin-right:auto;*/
 }
 
 .filter .label {

@@ -1,11 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-//import './Filter.css'
 import SimpleMultiSelect from './SimpleMultiSelect'
 
-import {closeFilter, filterLogMessages, changeFltLogLevels,
-  changeFltLoggers
+import {closeFilter, filterLogMessages, changeFltLogLevels, changeFltLoggers
 } from './AC'
 
 
@@ -16,12 +14,12 @@ class Filter extends React.Component
   }
 
   handleLevelsChanged = (selectedOptions) => {
-    this.props.changeFltLogLevels(this.getSelectedValues(selectedOptions))
+    this.props.changeFltLogLevels(selectedOptions)
     this.props.filterLogMessages()
   }
 
   handleLoggersChanged = (selectedOptions) => {
-    this.props.changeFltLoggers(this.getSelectedValues(selectedOptions))
+    this.props.changeFltLoggers(selectedOptions)
     this.props.filterLogMessages()
   }
 
@@ -42,20 +40,24 @@ class Filter extends React.Component
 
     return (
       <div className="filter">
-        <form>
+        <div className="container">
           <div>
-            <div className="label" style= {{float: "left"}}>
-              Уровни: </div>
+            <div className="label">
+              Уровни:
+            </div>
             <SimpleMultiSelect options={sortedLogLevels}
-                               defaultValue={logLevels}
+                               selectedOptions={logLevels}
                                onChange={this.handleLevelsChanged}/>
-            <div className="label" style= {{float: "left"}}>
-              Логгеры: </div>
+          </div>
+          <div>
+            <div className="label">
+              Логгеры:
+            </div>
             <SimpleMultiSelect options={sortedLoggers}
-                               defaultValue={loggers}
+                               selectedOptions={loggers}
                                onChange={this.handleLoggersChanged}/>
           </div>
-        </form>
+        </div>
         <p className="btn  close_btn" onClick={this.handleCloseFilter}>Close Filter</p>
       </div>
     );
@@ -65,6 +67,5 @@ class Filter extends React.Component
 export default connect((state) => ({
   logLevels: state.filter.logLevels,
   loggers: state.filter.loggers,
-}), {closeFilter, filterLogMessages, 
-  changeFltLogLevels, changeFltLoggers
+}), {closeFilter, filterLogMessages, changeFltLogLevels, changeFltLoggers
 })(Filter)

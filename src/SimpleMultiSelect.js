@@ -1,53 +1,29 @@
 import React from 'react'
-import Select from 'react-select'
 
-const ClearIndicatorStyles = (base, state) => ({
-    ...base,
-    cursor: 'pointer',
-    color: state.isFocused ? 'blue' : 'black',
-  });
+class SimpleMultiSelect extends React.Component {
 
-const ContainerStyles = (base, state) => ({
-    ...base,
-    cursor: 'pointer',
-    color: state.isFocused ? 'red' : 'black',
-    backgroundColor: 'red'
-  });
+  handleChange = (event) => {
+    const newSelectedOptions = [...event.target.selectedOptions].map( sel => sel.value );
+    this.props.onChange(newSelectedOptions);
+  }
 
-class SimpleMultiSelect extends React.Component
-{
-    state = {
-        selectedOptions: null,
-    }
+  renderOptions() {
+    const {options, selectedOptions} = this.props;
 
-    handleChange = (selectedOptions) => {
-        console.log(selectedOptions)
-//        this.setState({selectedOptions}, () => {
-//            this.props.onChange(selectedOptions)
-//        });
-        this.props.onChange(selectedOptions)
-    }
+    return options.map( opt => (
+      <option selected={selectedOptions.some( sel => sel === opt )}>
+        {opt}
+      </option>
+    ))
+  }
 
-    render() {
-        const { selectedOptions } = this.state;
-        const { options, defaultValue } = this.props;
-
-        const optionsForSelect = options.map( v => { return { value: v, label: v } } );
-        let defaultValueForSelect = [];
-        if( defaultValue ) {
-            defaultValueForSelect = defaultValue.map( v => { return { value: v, label: v } } )
-        }
-
-        return (
-            <Select value={defaultValueForSelect}
-              onChange={this.handleChange}
-              options={optionsForSelect}
-              isMulti
-              closeMenuOnSelect={false}
-              hideSelectedOptions={false}
-            />
-        )
-    }
+  render() {
+    return (
+      <select multiple onChange={this.handleChange}>
+        {this.renderOptions()}
+      </select>
+    )
+  }
 }
 
 export default SimpleMultiSelect
