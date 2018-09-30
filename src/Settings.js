@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql} from './AC'
+import {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql,
+  changeMessagesPerPage
+} from './AC'
 
 class Settings extends React.Component
 {
@@ -15,15 +17,21 @@ class Settings extends React.Component
     this.props.changeSettingsHighlightSql(event.target.checked);
   }
 
-  getSettingsData() {
-    return {
-      formatSql: this.state.formatSql,
-      highlightSql: this.state.highlightSql,
-    }
+  handleMessagesPerPageChanged = (event) => {
+    this.props.changeMessagesPerPage(event.target.value);
   }
 
+//  getSettingsData() {
+//    return {
+//      formatSql: this.state.formatSql,
+//      highlightSql: this.state.highlightSql,
+//    }
+//  }
+
   render() {
-    var {formatSql, highlightSql} = this.props;
+    var {formatSql, highlightSql, messagesPerPage} = this.props;
+
+    console.log('messagesPerPage - ', messagesPerPage)
 
     return (
       <div className="settings settings_opened">
@@ -35,6 +43,17 @@ class Settings extends React.Component
             <input type="checkbox" id="highlight_sql" checked={highlightSql} onChange={this.handleHighlightSqlClicked}/>
             <label htmlFor="highlight_sql"> Подсвечивать SQL</label>
           </div>
+          <div>
+            <label htmlFor="highlight_sql"> Сообщений на странице: </label>
+            <select value={messagesPerPage}
+                    onChange={this.handleMessagesPerPageChanged}>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={200}>200</option>
+              <option value={500}>500</option>
+            </select>
+          </div>
+          
           <p className="btn close_btn" onClick={this.handleCloseSettings}>Close Settings</p>
       </div>
     );
@@ -44,4 +63,6 @@ class Settings extends React.Component
 export default connect((state) => ({
   formatSql: state.settings.formatSql,
   highlightSql: state.settings.highlightSql,
-}), {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql})(Settings)
+  messagesPerPage: state.settings.messagesPerPage,
+}), {closeSettings, changeSettingsFormatSql, changeSettingsHighlightSql,
+  changeMessagesPerPage})(Settings)

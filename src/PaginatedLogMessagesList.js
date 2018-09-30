@@ -50,5 +50,6 @@ class PaginatedLogMessagesList extends React.Component
 export default connect((state) => {
   return {
     filtering: state.logMessages.filtering,
+    perPage: state.settings.messagesPerPage,
   }
 },{})(PaginatedLogMessagesList)

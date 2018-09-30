@@ -86,7 +86,7 @@ class App extends React.Component
           <SettingsModal />
         </div>
         <div className="messagesList">
-          <PaginatedLogMessagesList logMessages={logMessages} perPage={500} />
+          <PaginatedLogMessagesList logMessages={logMessages} />
         </div>
       </div>
     )
