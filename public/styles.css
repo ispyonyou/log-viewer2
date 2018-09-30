@@ -35,14 +35,40 @@
   text-decoration: none;
 }
 
+.headerInlineBlock {
+  display: table;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.header {
+  display: flex;
+/*  margin-left:auto;margin-right:auto;*/
+/*  width: 50%;*/
+}
+
+.header .navItem {
+  align-self: center;
+}
+
+.nav_item{
+  padding-left: 10px;
+  padding-right:  10px;
+  text-decoration: underline;
+}
+
+.nav_item:hover {
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+  text-decoration: none;
+}
+
+.fileChooser {
+  padding: 5px;
+  border: 1px dashed red;
+}
+
 .filter {
   display: block;
-/*  border: 1px dashed #999;*/
-/*  position: relative;*/
-/*  float: right;*/
-/*  max-width: 50%;*/
-/*  background-color: chartreuse;*/
-/*  clear: both;*/
   margin-left:auto;
   margin-right:auto;
 }
@@ -62,9 +88,6 @@
 .filter select {
   display: block;
   width: 100%;
-/*  min-width: 100px;*/
-/*  margin-left:auto;*/
-/*  margin-right:auto;*/
 }
 
 .filter option {
@@ -76,20 +99,11 @@
 }
 
 .filter .close_btn {
-/*  display: block;*/
-/*  text-decoration: underline;*/
-/*  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);*/
   float: right;
 }
 
 .settings {
   display: block;
-
-/*  border: 1px dashed #999;*/
-/*  float: right;*/
-/*  max-width: 50%;*/
-/*  background-color: orange;*/
-/*  margin-top: 10px;*/
   margin-left:auto;
   margin-right:auto;
 }
@@ -102,3 +116,59 @@
   float: right;
 }
   
+.pagination {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pagination li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pagination .selected {
+  border: 1px dashed #999;
+}
+
+.message_row_ul:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.message_row {
+  /*border: 1px dashed #999;*/
+  padding: 5px;
+}
+
+.message_row_ul li {
+  float: left;
+  list-style: none;
+  margin-left: 10px;
+  font-size: 0.6em;
+  background-color: aqua;
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;  
+  border-radius: 0 10px 0 10px;
+  /*border: 1px dashed #999;*/
+}
+
+.message_row_ul {
+  float: right;
+  margin: 0;
+  padding: 0;
+  /*border: 1px dashed #999;*/
+}
+
+.message_row p{
+  margin: 0;	
+  padding: 0;
+  word-break: break-word;
+  min-height: 16px
+}
+
+.message_row:nth-child(odd) {
+  background-color: #f4f7fc;
+}

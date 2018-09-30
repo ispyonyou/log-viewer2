@@ -12,8 +12,6 @@ import {toggleFilterIsOpened, toggleSettingsIsOpened, changeDefaultLogMessages,
   changeFltLogLevels, changeFltLoggers, filterLogMessages
 } from './AC'
 
-import './App.css'
-
 class App extends React.Component
 {
   handleShowFilter = () => { this.props.toggleFilterIsOpened() }

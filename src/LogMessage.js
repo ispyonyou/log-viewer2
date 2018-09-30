@@ -4,7 +4,6 @@ import sqlFormatter from 'sql-formatter'
 import {connect} from 'react-redux'
 
 import './Highlight.css'
-import './LogMessage.css'
 
 class LogMessage extends React.Component
 {

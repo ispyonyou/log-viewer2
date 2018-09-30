@@ -5,7 +5,6 @@ import LogMessagesList from './LogMessagesList'
 import ReactPaginate from 'react-paginate'
 import LoadingWithLabel from './LoadingWithLabel'
 
-import './PaginatedLogMessagesList.css'
 import filter from './reducer/filter';
 
 class PaginatedLogMessagesList extends React.Component
