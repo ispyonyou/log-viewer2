@@ -155,6 +155,23 @@
   /*border: 1px dashed #999;*/
 }
 
+.message_row_ul .time {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.message_row_ul .INFO {
+  background-color: rgba(21, 199, 140, 0.623);
+}
+
+.message_row_ul .TRACE {
+  background-color: rgba(21, 172, 199, 0.623);
+}
+
+.message_row_ul .ERROR {
+  background-color: rgba(199, 63, 21, 0.623);
+}
+
 .message_row_ul {
   float: right;
   margin: 0;
