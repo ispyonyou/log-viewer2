@@ -67,6 +67,10 @@
 /*  margin-right:auto;*/
 }
 
+.filter option {
+  height: 2.5em;
+}
+
 .filter .label {
   width: 8em;
 }

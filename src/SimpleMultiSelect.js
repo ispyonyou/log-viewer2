@@ -1,4 +1,5 @@
 import React from 'react'
+import util from 'util'
 
 class SimpleMultiSelect extends React.Component {
 
@@ -11,15 +12,20 @@ class SimpleMultiSelect extends React.Component {
     const {options, selectedOptions} = this.props;
 
     return options.map( opt => (
-      <option selected={selectedOptions.some( sel => sel === opt )}>
+      <option key={opt}>
         {opt}
       </option>
     ))
   }
 
   render() {
+    const {selectedOptions} = this.props;
+
     return (
-      <select multiple onChange={this.handleChange}>
+      <select multiple 
+              value={selectedOptions}
+              size={10}
+              onChange={this.handleChange}>
         {this.renderOptions()}
       </select>
     )
